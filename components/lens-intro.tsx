@@ -1,17 +1,17 @@
 "use client"
-
+ 
 import { motion, useScroll, useTransform, useSpring } from "framer-motion"
 import { useRef, useEffect, useState } from "react"
-
+ 
 export function LensIntro() {
   const containerRef = useRef<HTMLDivElement>(null)
   const [irisOpen, setIrisOpen] = useState(false)
-
+ 
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end start"],
   })
-
+ 
   const scale = useTransform(scrollYProgress, [0, 1], [1, 3.7])
   const opacity = useTransform(scrollYProgress, [0, 0.72, 1], [1, 1, 0])
   const textOpacity = useTransform(scrollYProgress, [0, 0.2, 0.42], [0, 1, 1])
@@ -20,343 +20,415 @@ export function LensIntro() {
   const focusRot = useTransform(scrollYProgress, [0, 1], [0, 60])
   const smoothRot = useSpring(focusRot, { stiffness: 40, damping: 20 })
   const reflectY = useTransform(scrollYProgress, [0, 0.5], [0, 12])
-
+ 
   useEffect(() => {
     const t = setTimeout(() => setIrisOpen(true), 400)
     return () => clearTimeout(t)
   }, [])
-
+ 
   return (
     <section ref={containerRef} className="relative h-[300vh] bg-black">
       <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center">
-
-        {/* BACKGROUND */}
+ 
+        {/* DEEP BACKGROUND */}
+        <div className="absolute inset-0 bg-black" />
+ 
+        {/* Subtle top backlight like in photo */}
         <div
-          className="absolute inset-0"
+          className="absolute inset-0 pointer-events-none"
           style={{
-            background: `
-              radial-gradient(ellipse 55% 42% at 50% 42%,
-                rgba(18,25,42,0.70),
-                rgba(3,4,8,0.96) 55%,
-                rgba(0,0,0,1) 100%
-              )
-            `,
+            background: `radial-gradient(ellipse 60% 30% at 50% -5%,
+              rgba(160,190,255,0.18) 0%,
+              rgba(80,110,200,0.08) 40%,
+              transparent 70%
+            )`,
           }}
         />
-
+ 
+        {/* Floor fog / wet surface glow */}
         <div
-          className="absolute inset-0"
+          className="absolute bottom-0 left-0 right-0 h-[45%] pointer-events-none"
           style={{
-            background: `
-              linear-gradient(to bottom,
-                rgba(0,0,0,0.98) 0%,
-                transparent 24%,
-                transparent 62%,
-                rgba(0,0,0,1) 100%
-              )
-            `,
+            background: `radial-gradient(ellipse 80% 50% at 50% 100%,
+              rgba(30,40,80,0.35) 0%,
+              rgba(10,12,25,0.55) 40%,
+              transparent 70%
+            )`,
           }}
         />
-
-        {/* ATMOSPHERE PARTICLES */}
-        <div
-          className="absolute inset-0 opacity-40 pointer-events-none"
-          style={{
-            backgroundImage: `
-              radial-gradient(circle at 20% 30%, rgba(120,160,255,0.22) 0 1px, transparent 1px),
-              radial-gradient(circle at 70% 25%, rgba(120,160,255,0.18) 0 1px, transparent 1px),
-              radial-gradient(circle at 82% 58%, rgba(120,160,255,0.14) 0 1px, transparent 1px),
-              radial-gradient(circle at 32% 68%, rgba(120,160,255,0.12) 0 1px, transparent 1px)
-            `,
-            backgroundSize: "360px 360px",
-          }}
-        />
-
-        {/* LENS SCENE */}
+ 
+        {/* SCENE WRAPPER */}
         <motion.div
           className="relative flex flex-col items-center"
-          style={{ scale, opacity, transformOrigin: "center 60%" } as any}
+          style={{ scale, opacity, transformOrigin: "center 52%" } as any}
         >
-        {/* CAMERA BODY SILHOUETTE — realistic dark camera shape */}
-        <div className="absolute top-[2%] left-1/2 -translate-x-1/2 w-[min(96vw,820px)] h-[min(48vw,340px)] pointer-events-none z-0">
-
-          {/* Main body */}
+ 
+          {/* ===== CAMERA BODY ===== */}
+          {/* This is the full camera front-face, dark matte black like the photo */}
           <div
-            className="absolute left-1/2 top-[22%] -translate-x-1/2 w-[88%] h-[62%]"
+            className="absolute"
             style={{
-              background: `
-                radial-gradient(ellipse at 50% 35%,
-                  rgba(22,28,42,0.38),
-                  rgba(5,7,11,0.92) 48%,
-                  rgba(0,0,0,1) 82%
-                )
-              `,
-              borderRadius: "28% 28% 22% 22% / 35% 35% 30% 30%",
-              boxShadow: `
-                0 0 95px rgba(70,110,180,0.13),
-                inset 0 0 90px rgba(0,0,0,0.98)
-              `,
+              /* Camera body spans wider than the lens */
+              width: "min(92vw, 780px)",
+              height: "min(58vw, 490px)",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              zIndex: 1,
             }}
-          />
-
-          {/* Viewfinder bump */}
+          >
+            {/* ---- Main body rectangle with rounded corners ---- */}
+            <div
+              className="absolute"
+              style={{
+                left: "4%",
+                right: "4%",
+                top: "24%",
+                bottom: "4%",
+                borderRadius: "10% 10% 12% 12% / 14% 14% 14% 14%",
+                background: `
+                  radial-gradient(ellipse 70% 60% at 50% 30%,
+                    rgba(38,44,58,1) 0%,
+                    rgba(20,24,32,1) 45%,
+                    rgba(8,9,12,1) 100%
+                  )
+                `,
+                boxShadow: `
+                  0 60px 120px rgba(0,0,0,0.98),
+                  0 20px 60px rgba(0,0,0,0.90),
+                  inset 0 1px 0 rgba(255,255,255,0.035),
+                  inset 0 -1px 0 rgba(0,0,0,0.8)
+                `,
+              }}
+            />
+ 
+            {/* ---- Top backlight rim on body (key light from above) ---- */}
+            <div
+              className="absolute pointer-events-none"
+              style={{
+                left: "8%",
+                right: "8%",
+                top: "23%",
+                height: "4px",
+                background: "linear-gradient(to right, transparent, rgba(180,210,255,0.28) 30%, rgba(200,220,255,0.45) 50%, rgba(180,210,255,0.28) 70%, transparent)",
+                borderRadius: "50%",
+                filter: "blur(1.5px)",
+              }}
+            />
+ 
+            {/* ---- Viewfinder hump (top center) ---- */}
+            <div
+              className="absolute"
+              style={{
+                left: "50%",
+                transform: "translateX(-50%)",
+                top: "0%",
+                width: "26%",
+                height: "36%",
+                clipPath: "polygon(12% 100%, 20% 20%, 38% 0%, 62% 0%, 80% 20%, 88% 100%)",
+                background: `
+                  radial-gradient(ellipse 80% 60% at 50% 10%,
+                    rgba(45,55,72,1) 0%,
+                    rgba(22,26,36,1) 50%,
+                    rgba(8,9,12,1) 100%
+                  )
+                `,
+                boxShadow: "0 -6px 30px rgba(160,195,255,0.14)",
+              }}
+            />
+ 
+            {/* Viewfinder top rim light */}
+            <div
+              className="absolute pointer-events-none"
+              style={{
+                left: "50%",
+                transform: "translateX(-50%)",
+                top: "0%",
+                width: "24%",
+                height: "2px",
+                background: "linear-gradient(to right, transparent, rgba(180,210,255,0.5) 30%, rgba(210,225,255,0.65) 50%, rgba(180,210,255,0.5) 70%, transparent)",
+                clipPath: "polygon(14% 100%, 22% 0%, 78% 0%, 86% 100%)",
+                filter: "blur(1px)",
+              }}
+            />
+ 
+            {/* ---- Left grip bulk ---- */}
+            <div
+              className="absolute"
+              style={{
+                left: "0%",
+                top: "26%",
+                width: "14%",
+                bottom: "4%",
+                borderRadius: "55% 25% 30% 45% / 20% 20% 20% 20%",
+                background: `
+                  radial-gradient(ellipse 80% 70% at 20% 40%,
+                    rgba(42,50,66,1) 0%,
+                    rgba(18,22,30,1) 50%,
+                    rgba(6,7,10,1) 100%
+                  )
+                `,
+                boxShadow: "inset -10px 0 30px rgba(0,0,0,0.7), 0 40px 80px rgba(0,0,0,0.95)",
+              }}
+            />
+ 
+            {/* ---- Right side flat ---- */}
+            <div
+              className="absolute"
+              style={{
+                right: "0%",
+                top: "26%",
+                width: "9%",
+                bottom: "4%",
+                borderRadius: "20% 45% 35% 20% / 20% 20% 20% 20%",
+                background: `
+                  radial-gradient(ellipse 80% 70% at 80% 40%,
+                    rgba(36,44,58,1) 0%,
+                    rgba(16,20,28,1) 50%,
+                    rgba(6,7,10,1) 100%
+                  )
+                `,
+                boxShadow: "inset 6px 0 20px rgba(0,0,0,0.7)",
+              }}
+            />
+ 
+            {/* ---- Top left dial (large) ---- */}
+            <div
+              className="absolute"
+              style={{
+                left: "12%",
+                top: "14%",
+                width: "9%",
+                height: "14%",
+                borderRadius: "50%",
+                background: "radial-gradient(ellipse at 40% 30%, rgba(55,65,82,1), rgba(18,22,30,1) 70%)",
+                boxShadow: "0 2px 10px rgba(0,0,0,0.85), 0 -1px 0 rgba(255,255,255,0.05)",
+              }}
+            />
+ 
+            {/* ---- Top left dial (small) ---- */}
+            <div
+              className="absolute"
+              style={{
+                left: "22%",
+                top: "11%",
+                width: "7%",
+                height: "11%",
+                borderRadius: "50%",
+                background: "radial-gradient(ellipse at 40% 30%, rgba(52,62,80,1), rgba(18,22,30,1) 70%)",
+                boxShadow: "0 2px 8px rgba(0,0,0,0.85)",
+              }}
+            />
+ 
+            {/* ---- Top right dial ---- */}
+            <div
+              className="absolute"
+              style={{
+                right: "14%",
+                top: "12%",
+                width: "8%",
+                height: "12%",
+                borderRadius: "50%",
+                background: "radial-gradient(ellipse at 40% 30%, rgba(52,62,80,1), rgba(18,22,30,1) 70%)",
+                boxShadow: "0 2px 8px rgba(0,0,0,0.85)",
+              }}
+            />
+ 
+            {/* ---- Hot shoe / top accessory ---- */}
+            <div
+              className="absolute"
+              style={{
+                left: "50%",
+                transform: "translateX(-50%)",
+                top: "1%",
+                width: "12%",
+                height: "4%",
+                background: "rgba(28,34,45,1)",
+                borderRadius: "2px",
+                boxShadow: "0 1px 4px rgba(0,0,0,0.6)",
+              }}
+            />
+          </div>
+ 
+          {/* ===== LENS ===== */}
           <div
-            className="absolute left-1/2 top-[2%] -translate-x-1/2 w-[30%] h-[42%]"
-            style={{
-              background: `
-                radial-gradient(ellipse at 50% 15%,
-                  rgba(45,58,82,0.36),
-                  rgba(5,7,11,0.94) 58%,
-                  rgba(0,0,0,1) 100%
-                )
-              `,
-              clipPath: "polygon(18% 100%, 30% 18%, 50% 0%, 70% 18%, 82% 100%)",
-              boxShadow: "0 0 45px rgba(120,160,255,0.16)",
-            }}
-          />
-
-          {/* Left grip */}
-          <div
-            className="absolute left-[6%] top-[30%] w-[22%] h-[58%]"
-            style={{
-              background: `
-                radial-gradient(ellipse at 40% 40%,
-                  rgba(18,24,36,0.45),
-                  rgba(2,3,5,0.96) 70%,
-                  rgba(0,0,0,1) 100%
-                )
-              `,
-              borderRadius: "42% 22% 25% 35%",
-              boxShadow: "inset -18px 0 40px rgba(0,0,0,0.92)",
-            }}
-          />
-
-          {/* Right grip */}
-          <div
-            className="absolute right-[6%] top-[30%] w-[22%] h-[58%]"
-            style={{
-              background: `
-                radial-gradient(ellipse at 60% 40%,
-                  rgba(18,24,36,0.42),
-                  rgba(2,3,5,0.96) 70%,
-                  rgba(0,0,0,1) 100%
-                )
-              `,
-              borderRadius: "22% 42% 35% 25%",
-              boxShadow: "inset 18px 0 40px rgba(0,0,0,0.92)",
-            }}
-          />
-
-          {/* Top buttons left */}
-          <div
-            className="absolute left-[18%] top-[18%] w-[11%] h-[10%]"
-            style={{
-              background: "rgba(5,7,10,0.92)",
-              borderRadius: "50%",
-              boxShadow: "0 -1px 8px rgba(160,190,255,0.12)",
-            }}
-          />
-
-          <div
-            className="absolute left-[30%] top-[15%] w-[13%] h-[9%]"
-            style={{
-              background: "rgba(5,7,10,0.94)",
-              borderRadius: "50%",
-              boxShadow: "0 -1px 8px rgba(160,190,255,0.13)",
-            }}
-          />
-
-          {/* Top button right */}
-          <div
-            className="absolute right-[22%] top-[16%] w-[13%] h-[9%]"
-            style={{
-              background: "rgba(5,7,10,0.94)",
-              borderRadius: "50%",
-              boxShadow: "0 -1px 8px rgba(160,190,255,0.13)",
-            }}
-          />
-
-          {/* Blue rim light */}
-          <div
-            className="absolute left-1/2 top-[4%] -translate-x-1/2 w-[70%] h-[55%]"
-            style={{
-              background:
-                "radial-gradient(ellipse at 50% 0%, rgba(120,160,255,0.22), transparent 58%)",
-              filter: "blur(18px)",
-              mixBlendMode: "screen",
-            }}
-          />
-        </div>
-
-          {/* DARK REFLECTIVE FLOOR */}
-          <div
-            className="absolute top-[64%] left-1/2 -translate-x-1/2 w-[150vw] h-[45vh] pointer-events-none"
-            style={{
-              background: `
-                radial-gradient(ellipse at 50% 0%,
-                  rgba(90,125,175,0.20),
-                  rgba(12,14,20,0.45) 24%,
-                  rgba(0,0,0,0.98) 72%
-                )
-              `,
-              borderTop: "1px solid rgba(180,210,255,0.07)",
-              boxShadow: "inset 0 24px 90px rgba(0,0,0,0.98)",
-            }}
-          />
-
-          {/* LENS */}
-          <div className="relative w-[min(72vw,480px)] aspect-square z-10">
-
-            {/* Outer barrel */}
+            className="relative z-10"
+            style={{ width: "min(68vw, 460px)", aspectRatio: "1 / 1" }}
+          >
+ 
+            {/* === Outer barrel ring === */}
             <div
               className="absolute inset-0 rounded-full"
               style={{
                 background: `radial-gradient(circle at 38% 28%,
-                  oklch(0.18 0.01 240),
-                  oklch(0.08 0.005 240) 50%,
-                  oklch(0.025 0 0) 100%
+                  rgba(52,60,76,1) 0%,
+                  rgba(22,26,34,1) 40%,
+                  rgba(8,9,12,1) 100%
                 )`,
                 boxShadow: `
-                  0 30px 90px rgba(0,0,0,0.98),
-                  0 8px 24px rgba(0,0,0,0.85),
-                  inset 0 2px 4px rgba(255,255,255,0.06),
-                  inset 0 -2px 6px rgba(0,0,0,0.85)
+                  0 40px 100px rgba(0,0,0,0.99),
+                  0 10px 30px rgba(0,0,0,0.90),
+                  inset 0 2px 0 rgba(255,255,255,0.07),
+                  inset 0 -2px 6px rgba(0,0,0,0.9),
+                  inset 0 0 0 1px rgba(255,255,255,0.04)
                 `,
               }}
             />
-
-            {/* Outer chrome bevel */}
+ 
+            {/* Top rim highlight (key light) */}
             <div
-              className="absolute inset-[1%] rounded-full"
+              className="absolute pointer-events-none"
               style={{
-                boxShadow: `
-                  inset 0 0 0 1px rgba(255,255,255,0.055),
-                  inset 0 2px 0 rgba(255,255,255,0.12),
-                  inset 0 -1px 0 rgba(0,0,0,0.9)
-                `,
+                top: "1%",
+                left: "15%",
+                right: "15%",
+                height: "7%",
+                background: "linear-gradient(to bottom, rgba(255,255,255,0.065), transparent)",
+                borderRadius: "50%",
+                filter: "blur(2px)",
               }}
             />
-
-            {/* Focus ring */}
+ 
+            {/* === Focus ring (knurled) === */}
             <motion.div
               className="absolute inset-[4%] rounded-full overflow-hidden"
-              style={{
-                rotate: smoothRot,
-                background: `conic-gradient(from 0deg,
-                  oklch(0.045 0.005 240),
-                  oklch(0.10 0.008 240) 4%,
-                  oklch(0.04 0.005 240) 8%,
-                  oklch(0.09 0.008 240) 12%,
-                  oklch(0.04 0.005 240) 16%,
-                  oklch(0.09 0.008 240) 20%,
-                  oklch(0.04 0.005 240) 24%,
-                  oklch(0.09 0.008 240) 28%,
-                  oklch(0.04 0.005 240) 32%,
-                  oklch(0.09 0.008 240) 36%,
-                  oklch(0.04 0.005 240) 40%,
-                  oklch(0.09 0.008 240) 44%,
-                  oklch(0.04 0.005 240) 48%,
-                  oklch(0.09 0.008 240) 52%,
-                  oklch(0.04 0.005 240) 56%,
-                  oklch(0.09 0.008 240) 60%,
-                  oklch(0.04 0.005 240) 64%,
-                  oklch(0.09 0.008 240) 68%,
-                  oklch(0.04 0.005 240) 72%,
-                  oklch(0.09 0.008 240) 76%,
-                  oklch(0.04 0.005 240) 80%,
-                  oklch(0.09 0.008 240) 84%,
-                  oklch(0.04 0.005 240) 88%,
-                  oklch(0.09 0.008 240) 92%,
-                  oklch(0.04 0.005 240) 96%,
-                  oklch(0.045 0.005 240) 100%
-                )`,
-                boxShadow: "inset 0 2px 10px rgba(0,0,0,0.85)",
-              }}
+              style={{ rotate: smoothRot }}
             >
-              {[...Array(32)].map((_, i) => (
+              <div
+                className="absolute inset-0 rounded-full"
+                style={{
+                  background: `conic-gradient(from 0deg,
+                    rgba(28,34,44,1),
+                    rgba(50,60,76,1) 3.5%,
+                    rgba(26,32,42,1) 7%,
+                    rgba(48,58,74,1) 10.5%,
+                    rgba(26,32,42,1) 14%,
+                    rgba(48,58,74,1) 17.5%,
+                    rgba(26,32,42,1) 21%,
+                    rgba(48,58,74,1) 24.5%,
+                    rgba(26,32,42,1) 28%,
+                    rgba(48,58,74,1) 31.5%,
+                    rgba(26,32,42,1) 35%,
+                    rgba(48,58,74,1) 38.5%,
+                    rgba(26,32,42,1) 42%,
+                    rgba(48,58,74,1) 45.5%,
+                    rgba(26,32,42,1) 49%,
+                    rgba(48,58,74,1) 52.5%,
+                    rgba(26,32,42,1) 56%,
+                    rgba(48,58,74,1) 59.5%,
+                    rgba(26,32,42,1) 63%,
+                    rgba(48,58,74,1) 66.5%,
+                    rgba(26,32,42,1) 70%,
+                    rgba(48,58,74,1) 73.5%,
+                    rgba(26,32,42,1) 77%,
+                    rgba(48,58,74,1) 80.5%,
+                    rgba(26,32,42,1) 84%,
+                    rgba(48,58,74,1) 87.5%,
+                    rgba(26,32,42,1) 91%,
+                    rgba(48,58,74,1) 94.5%,
+                    rgba(26,32,42,1) 98%,
+                    rgba(28,34,44,1) 100%
+                  )`,
+                  boxShadow: "inset 0 4px 14px rgba(0,0,0,0.85)",
+                }}
+              />
+              {/* Tick marks on focus ring */}
+              {[...Array(28)].map((_, i) => (
                 <div
                   key={i}
                   className="absolute inset-0 flex justify-center"
-                  style={{ transform: `rotate(${(i * 360) / 32}deg)` }}
+                  style={{ transform: `rotate(${(i * 360) / 28}deg)` }}
                 >
                   <div
                     style={{
                       position: "absolute",
-                      top: "1.5%",
-                      width: "1px",
-                      height: "6%",
-                      background: "rgba(255,255,255,0.055)",
+                      top: "2%",
+                      width: i % 4 === 0 ? "2px" : "1px",
+                      height: i % 4 === 0 ? "9%" : "5.5%",
+                      background: i % 4 === 0 ? "rgba(255,255,255,0.10)" : "rgba(255,255,255,0.055)",
                       borderRadius: "1px",
                     }}
                   />
                 </div>
               ))}
             </motion.div>
-
-            {/* Inner barrel */}
+ 
+            {/* === Inner barrel ring === */}
             <div
               className="absolute inset-[12%] rounded-full"
               style={{
-                background:
-                  "radial-gradient(circle at 40% 35%, oklch(0.12 0.01 240), oklch(0.055 0.005 240) 60%, oklch(0.025 0 0))",
-                boxShadow: "inset 0 4px 14px rgba(0,0,0,0.92)",
+                background: `radial-gradient(circle at 42% 36%,
+                  rgba(30,36,48,1) 0%,
+                  rgba(14,16,22,1) 55%,
+                  rgba(5,5,8,1) 100%
+                )`,
+                boxShadow: `
+                  inset 0 6px 18px rgba(0,0,0,0.95),
+                  inset 0 0 0 1px rgba(255,255,255,0.035)
+                `,
               }}
             />
-
-            {/* Glass 1 */}
-            <div className="absolute inset-[18%] rounded-full overflow-hidden">
-              <div
-                className="absolute inset-0"
-                style={{
-                  background:
-                    "radial-gradient(circle at 42% 38%, oklch(0.14 0.12 255), oklch(0.055 0.06 250) 55%, oklch(0.025 0.02 260))",
-                }}
-              />
-              <div
-                className="absolute inset-0"
-                style={{
-                  background:
-                    "linear-gradient(125deg, oklch(0.40 0.20 270 / 0.16) 0%, transparent 45%, oklch(0.30 0.15 240 / 0.08) 100%)",
-                }}
-              />
-            </div>
-
-            {/* Glass 2 */}
-            <div className="absolute inset-[23%] rounded-full overflow-hidden">
-              <div
-                className="absolute inset-0"
-                style={{
-                  background:
-                    "radial-gradient(circle at 45% 42%, oklch(0.16 0.18 270), oklch(0.075 0.10 265) 50%, oklch(0.025 0.04 275))",
-                }}
-              />
-              <div
-                className="absolute inset-0"
-                style={{
-                  background:
-                    "linear-gradient(140deg, oklch(0.50 0.22 280 / 0.12), transparent 50%)",
-                }}
-              />
-            </div>
-
-            {/* Glass 3 */}
+ 
+            {/* === Glass element ring 1 === */}
             <div
-              className="absolute inset-[27%] rounded-full overflow-hidden"
-              style={{ boxShadow: "inset 0 0 45px rgba(0,0,0,0.85)" }}
+              className="absolute inset-[16%] rounded-full overflow-hidden"
+              style={{
+                background: `radial-gradient(circle at 44% 38%,
+                  rgba(22,28,55,1) 0%,
+                  rgba(12,15,35,1) 45%,
+                  rgba(5,5,18,1) 75%,
+                  rgba(2,2,8,1) 100%
+                )`,
+                boxShadow: "inset 0 4px 16px rgba(0,0,0,0.9)",
+              }}
+            >
+              {/* Blue-violet coat shimmer */}
+              <div
+                className="absolute inset-0"
+                style={{
+                  background: "linear-gradient(130deg, rgba(80,100,200,0.12) 0%, transparent 40%, rgba(60,40,160,0.06) 100%)",
+                }}
+              />
+            </div>
+ 
+            {/* === Glass element ring 2 === */}
+            <div
+              className="absolute inset-[21%] rounded-full overflow-hidden"
+              style={{
+                background: `radial-gradient(circle at 46% 40%,
+                  rgba(30,35,80,1) 0%,
+                  rgba(16,18,50,1) 40%,
+                  rgba(8,8,28,1) 70%,
+                  rgba(2,2,10,1) 100%
+                )`,
+              }}
             >
               <div
                 className="absolute inset-0"
                 style={{
-                  background:
-                    "radial-gradient(circle at 48% 44%, oklch(0.22 0.22 275), oklch(0.09 0.14 268) 45%, oklch(0.02 0.03 280))",
+                  background: "linear-gradient(140deg, rgba(100,120,230,0.10) 0%, transparent 50%)",
                 }}
               />
             </div>
-
-            {/* IRIS */}
-            <div className="absolute inset-[31%] rounded-full overflow-hidden">
+ 
+            {/* === Glass element ring 3 (deep indigo) === */}
+            <div
+              className="absolute inset-[26%] rounded-full overflow-hidden"
+              style={{
+                background: `radial-gradient(circle at 48% 42%,
+                  rgba(45,45,130,1) 0%,
+                  rgba(22,20,75,1) 35%,
+                  rgba(10,8,35,1) 65%,
+                  rgba(3,2,12,1) 100%
+                )`,
+                boxShadow: "inset 0 0 40px rgba(0,0,0,0.85)",
+              }}
+            />
+ 
+            {/* === IRIS === */}
+            <div className="absolute inset-[30%] rounded-full overflow-hidden">
               <div className="absolute inset-0 bg-black" />
-
+ 
               {[...Array(9)].map((_, i) => (
                 <div
                   key={i}
@@ -366,223 +438,234 @@ export function LensIntro() {
                   <motion.div
                     className="absolute top-0 left-1/2 -translate-x-1/2 origin-bottom"
                     animate={{
-                      height: irisOpen ? "40%" : "54%",
-                      width: irisOpen ? "50%" : "62%",
+                      height: irisOpen ? "38%" : "54%",
+                      width: irisOpen ? "48%" : "60%",
                       opacity: 1,
                     }}
-                    initial={{ height: "54%", width: "62%", opacity: 0 }}
+                    initial={{ height: "54%", width: "60%", opacity: 0 }}
                     transition={{
-                      height: {
-                        duration: 1,
-                        ease: [0.25, 0.46, 0.45, 0.94],
-                        delay: 0.1 + i * 0.04,
-                      },
-                      width: {
-                        duration: 1,
-                        ease: [0.25, 0.46, 0.45, 0.94],
-                        delay: 0.1 + i * 0.04,
-                      },
+                      height: { duration: 1.1, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.1 + i * 0.04 },
+                      width: { duration: 1.1, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.1 + i * 0.04 },
                       opacity: { duration: 0.2, delay: 0.1 },
                     }}
                     style={{
                       clipPath: "polygon(18% 0%, 82% 0%, 100% 100%, 0% 100%)",
-                      background:
-                        "linear-gradient(to bottom, oklch(0.075 0.005 240), oklch(0.025 0 0))",
+                      background: "linear-gradient(to bottom, rgba(18,20,28,1), rgba(5,5,8,1))",
                     }}
                   />
                 </div>
               ))}
-
-              {/* Blue glow center */}
-              <div className="absolute inset-[20%] rounded-full overflow-hidden">
+ 
+              {/* === INNER LENS — deep blue glow === */}
+              <div className="absolute inset-[18%] rounded-full overflow-hidden">
                 <div
                   className="absolute inset-0"
                   style={{
-                    background:
-                      "radial-gradient(circle at 48% 45%, oklch(0.42 0.25 275), oklch(0.17 0.18 270) 35%, oklch(0.055 0.08 265) 65%, oklch(0.015 0 0))",
+                    background: `radial-gradient(circle at 48% 45%,
+                      rgba(80,60,255,0.95) 0%,
+                      rgba(50,30,200,0.90) 18%,
+                      rgba(28,15,120,0.88) 36%,
+                      rgba(14,8,60,0.92) 55%,
+                      rgba(4,2,18,1) 75%,
+                      rgba(0,0,0,1) 100%
+                    )`,
                   }}
                 />
-
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div
-                    style={{
-                      width: "15%",
-                      height: "60%",
-                      background:
-                        "linear-gradient(to bottom, transparent, oklch(0.7 0.30 275 / 0.75) 40%, oklch(0.9 0.28 272 / 0.85) 50%, oklch(0.7 0.30 275 / 0.75) 60%, transparent)",
-                      filter: "blur(2px)",
-                      borderRadius: "50%",
-                    }}
-                  />
-                </div>
-
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div
-                    style={{
-                      width: "60%",
-                      height: "12%",
-                      background:
-                        "linear-gradient(to right, transparent, oklch(0.6 0.28 275 / 0.55) 40%, oklch(0.8 0.26 272 / 0.65) 50%, oklch(0.6 0.28 275 / 0.55) 60%, transparent)",
-                      filter: "blur(2px)",
-                      borderRadius: "50%",
-                    }}
-                  />
-                </div>
-
+ 
+                {/* Vertical flare */}
                 <div
-                  className="absolute inset-[10%] rounded-full"
+                  className="absolute inset-0 flex items-center justify-center"
+                  style={{ pointerEvents: "none" }}
+                >
+                  <div
+                    style={{
+                      width: "10%",
+                      height: "55%",
+                      background: "linear-gradient(to bottom, transparent, rgba(180,170,255,0.80) 40%, rgba(255,255,255,0.95) 50%, rgba(180,170,255,0.80) 60%, transparent)",
+                      filter: "blur(1.5px)",
+                      borderRadius: "50%",
+                    }}
+                  />
+                </div>
+ 
+                {/* Horizontal flare */}
+                <div
+                  className="absolute inset-0 flex items-center justify-center"
+                  style={{ pointerEvents: "none" }}
+                >
+                  <div
+                    style={{
+                      width: "55%",
+                      height: "8%",
+                      background: "linear-gradient(to right, transparent, rgba(160,150,255,0.60) 40%, rgba(255,255,255,0.80) 50%, rgba(160,150,255,0.60) 60%, transparent)",
+                      filter: "blur(1.5px)",
+                      borderRadius: "50%",
+                    }}
+                  />
+                </div>
+ 
+                {/* Center bright point */}
+                <div
+                  className="absolute inset-0 flex items-center justify-center"
+                  style={{ pointerEvents: "none" }}
+                >
+                  <div
+                    style={{
+                      width: "12%",
+                      height: "12%",
+                      borderRadius: "50%",
+                      background: "radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(200,190,255,0.90) 40%, transparent 80%)",
+                      filter: "blur(0.5px)",
+                    }}
+                  />
+                </div>
+ 
+                {/* Rings / diffraction */}
+                <div
+                  className="absolute inset-[5%] rounded-full"
                   style={{
                     boxShadow: `
-                      0 0 0 1px oklch(0.5 0.20 275 / 0.14),
-                      0 0 0 4px oklch(0.4 0.18 270 / 0.09),
-                      0 0 0 8px oklch(0.3 0.15 268 / 0.06),
-                      0 0 0 14px oklch(0.2 0.12 265 / 0.04)
+                      0 0 0 1px rgba(130,110,255,0.18),
+                      0 0 0 4px rgba(100,80,220,0.12),
+                      0 0 0 8px rgba(80,60,180,0.08),
+                      0 0 0 14px rgba(60,40,140,0.05)
                     `,
-                  }}
-                />
-
-                <div
-                  className="absolute inset-[38%] rounded-full"
-                  style={{
-                    background:
-                      "radial-gradient(circle, oklch(0.95 0.15 272), oklch(0.70 0.25 275) 50%, transparent)",
-                    filter: "blur(1px)",
                   }}
                 />
               </div>
             </div>
-
-            {/* Blue ambient glow */}
+ 
+            {/* === Blue ambient glow around lens === */}
             <motion.div
-              className="absolute inset-[20%] rounded-full pointer-events-none"
-              style={{ opacity: flareOp }}
+              className="absolute pointer-events-none"
+              style={{
+                inset: "-15%",
+                opacity: flareOp,
+              }}
             >
               <div
                 style={{
                   position: "absolute",
-                  inset: "-20%",
-                  background:
-                    "radial-gradient(circle, oklch(0.35 0.20 275 / 0.20), transparent 65%)",
-                  filter: "blur(14px)",
+                  inset: "20%",
+                  background: "radial-gradient(circle, rgba(60,40,200,0.22), transparent 65%)",
+                  filter: "blur(20px)",
                 }}
               />
             </motion.div>
-
-            {/* Flare streak */}
+ 
+            {/* === Lens flare streak === */}
             <motion.div
-              className="absolute inset-[20%] rounded-full pointer-events-none"
+              className="absolute inset-0 rounded-full pointer-events-none overflow-hidden"
               style={{ opacity: flareOp }}
             >
               <div
                 style={{
                   position: "absolute",
-                  top: "5%",
-                  left: "8%",
-                  width: "48%",
-                  height: "16%",
-                  background:
-                    "linear-gradient(to right, transparent, rgba(180,200,255,0.10) 40%, rgba(255,255,255,0.07), transparent)",
+                  top: "7%",
+                  left: "10%",
+                  width: "45%",
+                  height: "14%",
+                  background: "linear-gradient(to right, transparent, rgba(160,180,255,0.09) 40%, rgba(255,255,255,0.06), transparent)",
                   borderRadius: "50%",
                   transform: "rotate(-30deg)",
-                  filter: "blur(3px)",
+                  filter: "blur(4px)",
                 }}
               />
             </motion.div>
-
-            {/* Text markings */}
-            <div className="absolute inset-[5%] rounded-full pointer-events-none">
-              <span className="absolute top-[3%] left-1/2 -translate-x-1/2 text-[8px] text-white/18 tracking-[0.35em] uppercase font-light select-none">
+ 
+            {/* === Text markings === */}
+            <div className="absolute inset-[4%] rounded-full pointer-events-none">
+              <span
+                className="absolute top-[2.5%] left-1/2 -translate-x-1/2 text-white/40 tracking-[0.35em] uppercase font-light select-none"
+                style={{ fontSize: "clamp(6px, 1.2vw, 10px)" }}
+              >
                 24-70MM
               </span>
-              <span className="absolute bottom-[3%] left-1/2 -translate-x-1/2 text-[7px] text-white/18 tracking-[0.25em] font-light select-none">
+              {/* Red dot */}
+              <div
+                className="absolute top-[3.5%] left-1/2 ml-8 w-[6px] h-[6px] rounded-full"
+                style={{
+                  background: "rgb(220,40,40)",
+                  boxShadow: "0 0 8px rgba(220,40,40,0.8), 0 0 2px rgba(255,80,80,0.9)",
+                  transform: "translateY(-50%)",
+                  marginTop: "0.7em",
+                }}
+              />
+              <span
+                className="absolute bottom-[2.5%] left-1/2 -translate-x-1/2 text-white/40 tracking-[0.28em] font-light select-none"
+                style={{ fontSize: "clamp(5px, 1.1vw, 9px)" }}
+              >
                 f/2.8 L USM
               </span>
               <span
-                className="absolute top-1/2 right-[2%] -translate-y-1/2 text-[6px] text-white/12 tracking-[0.12em] font-light select-none"
-                style={{ writingMode: "vertical-rl" }}
+                className="absolute top-1/2 right-[2.5%] -translate-y-1/2 text-white/25 tracking-[0.15em] font-light select-none"
+                style={{ fontSize: "clamp(4px, 0.9vw, 8px)", writingMode: "vertical-rl" }}
               >
                 ZOOM LENS
               </span>
             </div>
-
-            {/* Red dot */}
-            <div className="absolute inset-[8%] rounded-full pointer-events-none">
-              <div
-                className="absolute top-[2.5%] left-1/2 -translate-x-1/2 w-[5px] h-[2px] rounded-full"
-                style={{
-                  background: "oklch(0.55 0.25 25)",
-                  boxShadow: "0 0 6px oklch(0.55 0.25 25)",
-                }}
-              />
-            </div>
-
-            {/* Top highlight */}
-            <div className="absolute inset-0 rounded-full pointer-events-none">
-              <div
-                style={{
-                  position: "absolute",
-                  top: "1%",
-                  left: "20%",
-                  right: "20%",
-                  height: "6%",
-                  background: "linear-gradient(to bottom, rgba(255,255,255,0.06), transparent)",
-                  borderRadius: "50%",
-                  filter: "blur(3px)",
-                }}
-              />
-            </div>
           </div>
-
-          {/* SURFACE LINE */}
+ 
+          {/* ===== REFLECTIVE FLOOR ===== */}
+          {/* Thin separator line */}
           <div
             style={{
-              width: "150%",
+              width: "160%",
               height: "1px",
-              background:
-                "linear-gradient(to right, transparent, rgba(180,210,255,0.05) 30%, rgba(180,210,255,0.12) 50%, rgba(180,210,255,0.05) 70%, transparent)",
+              background: "linear-gradient(to right, transparent, rgba(160,190,255,0.06) 25%, rgba(180,210,255,0.14) 50%, rgba(160,190,255,0.06) 75%, transparent)",
               marginTop: "-1px",
               zIndex: 2,
             }}
           />
-
-          {/* REFLECTION */}
+ 
+          {/* Wet floor texture */}
+          <div
+            style={{
+              width: "200%",
+              height: "30px",
+              background: "radial-gradient(ellipse at 50% 0%, rgba(100,130,200,0.14), transparent 70%)",
+              filter: "blur(2px)",
+            }}
+          />
+ 
+          {/* Lens reflection on floor */}
           <motion.div
             style={{
               y: reflectY,
-              width: "min(78vw, 520px)",
-              height: "230px",
-              maskImage: "linear-gradient(to bottom, rgba(0,0,0,0.38) 0%, transparent 88%)",
-              WebkitMaskImage: "linear-gradient(to bottom, rgba(0,0,0,0.38) 0%, transparent 88%)",
+              width: "min(72vw, 490px)",
+              height: "200px",
+              maskImage: "linear-gradient(to bottom, rgba(0,0,0,0.32) 0%, transparent 85%)",
+              WebkitMaskImage: "linear-gradient(to bottom, rgba(0,0,0,0.32) 0%, transparent 85%)",
               transform: "scaleY(-1)",
+              marginTop: "-10px",
             } as any}
-            className="relative overflow-hidden z-0 -mt-4"
+            className="relative overflow-hidden z-0"
           >
             <div
-              className="absolute top-0 left-1/2 -translate-x-1/2 w-[min(72vw,480px)] aspect-square rounded-full"
+              className="absolute top-0 left-1/2 -translate-x-1/2 rounded-full"
               style={{
-                background: `
-                  radial-gradient(circle at 50% 50%,
-                    rgba(70,60,255,0.30),
-                    rgba(20,25,60,0.18) 28%,
-                    rgba(0,0,0,0.9) 70%
-                  )
-                `,
-                boxShadow: "0 0 85px rgba(60,80,255,0.18)",
-                filter: "blur(1px)",
+                width: "min(68vw, 460px)",
+                aspectRatio: "1",
+                background: `radial-gradient(circle at 50% 50%,
+                  rgba(50,35,200,0.35) 0%,
+                  rgba(25,15,100,0.22) 30%,
+                  rgba(8,5,40,0.15) 55%,
+                  rgba(0,0,0,0.8) 75%
+                )`,
+                filter: "blur(2px)",
               }}
             />
-
+            {/* Floor horizontal wet streaks */}
             <div
               className="absolute inset-0"
               style={{
-                background:
-                  "linear-gradient(to right, transparent, rgba(160,200,255,0.10), transparent)",
-                filter: "blur(8px)",
+                background: "linear-gradient(to right, transparent 10%, rgba(140,170,255,0.07) 50%, transparent 90%)",
+                filter: "blur(6px)",
               }}
             />
           </motion.div>
         </motion.div>
-
+ 
         {/* WIDE BLUE AMBIENT */}
         <motion.div
           className="absolute inset-0 pointer-events-none flex items-center justify-center"
@@ -590,45 +673,51 @@ export function LensIntro() {
         >
           <div
             style={{
-              width: "55%",
-              height: "55%",
-              background:
-                "radial-gradient(circle, oklch(0.20 0.12 275 / 0.15), transparent 72%)",
-              filter: "blur(48px)",
+              width: "60%",
+              height: "60%",
+              background: "radial-gradient(circle, rgba(40,25,160,0.14), transparent 72%)",
+              filter: "blur(55px)",
             }}
           />
         </motion.div>
-
-        {/* TEXT */}
+ 
+        {/* TEXT OVERLAY */}
         <motion.div
           style={{ opacity: textOpacity, y: textY }}
           className="absolute inset-0 flex flex-col items-center justify-center text-center z-20 pointer-events-none"
         >
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-light tracking-[0.2em] text-white mb-6">
+          <h1
+            className="font-light tracking-[0.22em] text-white mb-6"
+            style={{ fontSize: "clamp(2.2rem, 7vw, 5.5rem)" }}
+          >
             SHOOT BY ROM
           </h1>
-          <p className="text-sm md:text-base tracking-[0.4em] text-white/60 mb-8 uppercase">
+          <p
+            className="tracking-[0.42em] text-white/55 mb-8 uppercase"
+            style={{ fontSize: "clamp(0.65rem, 1.3vw, 1rem)" }}
+          >
             FPV • Drone • Photography
           </p>
-          <p className="text-base md:text-lg text-white/45 max-w-md px-6 leading-relaxed">
+          <p
+            className="text-white/40 max-w-md px-6 leading-relaxed"
+            style={{ fontSize: "clamp(0.8rem, 1.5vw, 1.1rem)" }}
+          >
             Capturing stories from the ground and the sky.
           </p>
         </motion.div>
-
-        {/* SCROLL */}
+ 
+        {/* SCROLL INDICATOR */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.8, duration: 1 }}
           className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-30"
         >
-          <span className="text-xs tracking-[0.3em] text-white/45 uppercase">
-            Scroll
-          </span>
+          <span className="text-xs tracking-[0.3em] text-white/40 uppercase">Scroll</span>
           <motion.div
             animate={{ y: [0, 8, 0] }}
             transition={{ duration: 1.5, repeat: Infinity }}
-            className="w-px h-8 bg-gradient-to-b from-white/45 to-transparent"
+            className="w-px h-8 bg-gradient-to-b from-white/40 to-transparent"
           />
         </motion.div>
       </div>

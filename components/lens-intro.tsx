@@ -101,12 +101,12 @@ export function LensIntro() {
           />
 
           {/* === FOCUS / GRIP RING === */}
-          <motion.div
-            style={{ rotate: smoothFocusRotate, scale: breatheScale }}
-            className="absolute inset-[3.5%] rounded-full"
-            style={{
-              background: `
-                conic-gradient(
+            <motion.div
+              className="absolute inset-[3.5%] rounded-full overflow-hidden"
+              style={{
+                rotate: smoothFocusRotate,
+                scale: breatheScale,
+                background: `conic-gradient(
                   from 0deg,
                   oklch(0.10 0.01 240),
                   oklch(0.15 0.01 240) 5%,
@@ -129,12 +129,10 @@ export function LensIntro() {
                   oklch(0.09 0.01 240) 90%,
                   oklch(0.14 0.01 240) 95%,
                   oklch(0.09 0.01 240) 100%
-                )
-              `,
-              rotate: smoothFocusRotate,
-              boxShadow: "inset 0 3px 8px rgba(0,0,0,0.6), inset 0 -2px 4px rgba(0,0,0,0.4)"
-            } as any}
-          >
+                )`,
+                boxShadow: "inset 0 3px 8px rgba(0,0,0,0.6), inset 0 -2px 4px rgba(0,0,0,0.4)"
+              }}
+            >
             {/* Rubber grip ridges */}
             {[...Array(48)].map((_, i) => (
               <div
@@ -150,29 +148,6 @@ export function LensIntro() {
               />
             ))}
 
-            {/* Distance scale markings */}
-            {[0.5, 0.7, 1, 1.5, 2, 3, 5].map((dist, i) => {
-              const angle = -60 + i * 20
-              return (
-                <div
-                  key={dist}
-                  className="absolute"
-                  style={{
-                    top: '50%',
-                    left: '50%',
-                    transformOrigin: '0 0',
-                    transform: `rotate(${angle}deg) translateX(42%) translateY(-50%)`,
-                    fontSize: '5px',
-                    color: 'rgba(255,255,255,0.25)',
-                    letterSpacing: '0.05em',
-                    fontFamily: 'monospace',
-                    whiteSpace: 'nowrap'
-                  }}
-                >
-                  {dist}
-                </div>
-              )
-            })}
           </motion.div>
 
           {/* === INNER CHROME RINGS === */}

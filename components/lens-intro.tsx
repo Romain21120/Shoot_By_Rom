@@ -75,8 +75,8 @@ export function LensIntro() {
             className="absolute"
             style={{
               // Centre de l'objectif dans la photo : ~52% left, ~47% top
-              left: "52%",
-              top: "47%",
+              left: "50%",
+              top: "45%",
               // Diamètre = ~42vw (ajuste si besoin)
               width: "42vw",
               maxWidth: "560px",

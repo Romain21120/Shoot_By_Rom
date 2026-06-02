@@ -55,7 +55,7 @@ export function LensIntro() {
           style={{
             scale,
             opacity,
-            transformOrigin: "51% 42%",
+            transformOrigin: "51% 50%",
           } as any}
           className="absolute inset-0"
         >
@@ -64,7 +64,7 @@ export function LensIntro() {
             className="absolute"
             style={{
               left: "51%",
-              top: "42%",
+              top: "50%",
               width: "42vw",
               maxWidth: "560px",
               aspectRatio: "1 / 1",
@@ -77,9 +77,9 @@ export function LensIntro() {
               className="absolute inset-0 rounded-full"
               style={{
                 background: `radial-gradient(circle at 38% 30%,
-                  rgba(48,56,72,0.85) 0%,
-                  rgba(22,26,36,0.90) 42%,
-                  rgba(8,9,14,0.95) 100%
+                  rgba(18,22,30,0.95) 0%,
+                  rgba(10,12,18,0.97) 42%,
+                  rgba(3,3,6,0.99) 100%
                 )`,
                 boxShadow: `
                   inset 0 2px 0 rgba(255,255,255,0.07),
@@ -105,22 +105,22 @@ export function LensIntro() {
                 className="absolute inset-0"
                 style={{
                   background: `conic-gradient(from 0deg,
-                    rgba(24,30,40,0.90), rgba(46,56,72,0.90) 3.2%,
-                    rgba(22,28,38,0.90) 6.4%, rgba(44,54,70,0.90) 9.6%,
-                    rgba(22,28,38,0.90) 12.8%, rgba(44,54,70,0.90) 16%,
-                    rgba(22,28,38,0.90) 19.2%, rgba(44,54,70,0.90) 22.4%,
-                    rgba(22,28,38,0.90) 25.6%, rgba(44,54,70,0.90) 28.8%,
-                    rgba(22,28,38,0.90) 32%, rgba(44,54,70,0.90) 35.2%,
-                    rgba(22,28,38,0.90) 38.4%, rgba(44,54,70,0.90) 41.6%,
-                    rgba(22,28,38,0.90) 44.8%, rgba(44,54,70,0.90) 48%,
-                    rgba(22,28,38,0.90) 51.2%, rgba(44,54,70,0.90) 54.4%,
-                    rgba(22,28,38,0.90) 57.6%, rgba(44,54,70,0.90) 60.8%,
-                    rgba(22,28,38,0.90) 64%, rgba(44,54,70,0.90) 67.2%,
-                    rgba(22,28,38,0.90) 70.4%, rgba(44,54,70,0.90) 73.6%,
-                    rgba(22,28,38,0.90) 76.8%, rgba(44,54,70,0.90) 80%,
-                    rgba(22,28,38,0.90) 83.2%, rgba(44,54,70,0.90) 86.4%,
-                    rgba(22,28,38,0.90) 89.6%, rgba(44,54,70,0.90) 92.8%,
-                    rgba(22,28,38,0.90) 96%, rgba(24,30,40,0.90) 100%
+                    rgba(10,14,20,0.97), rgba(22,28,38,0.97) 3.2%,
+                    rgba(10,13,18,0.97) 6.4%, rgba(20,26,36,0.97) 9.6%,
+                    rgba(10,13,18,0.97) 12.8%, rgba(20,26,36,0.97) 16%,
+                    rgba(10,13,18,0.97) 19.2%, rgba(20,26,36,0.97) 22.4%,
+                    rgba(10,13,18,0.97) 25.6%, rgba(20,26,36,0.97) 28.8%,
+                    rgba(10,13,18,0.97) 32%, rgba(20,26,36,0.97) 35.2%,
+                    rgba(10,13,18,0.97) 38.4%, rgba(20,26,36,0.97) 41.6%,
+                    rgba(10,13,18,0.97) 44.8%, rgba(20,26,36,0.97) 48%,
+                    rgba(10,13,18,0.97) 51.2%, rgba(20,26,36,0.97) 54.4%,
+                    rgba(10,13,18,0.97) 57.6%, rgba(20,26,36,0.97) 60.8%,
+                    rgba(10,13,18,0.97) 64%, rgba(20,26,36,0.97) 67.2%,
+                    rgba(10,13,18,0.97) 70.4%, rgba(20,26,36,0.97) 73.6%,
+                    rgba(10,13,18,0.97) 76.8%, rgba(20,26,36,0.97) 80%,
+                    rgba(10,13,18,0.97) 83.2%, rgba(20,26,36,0.97) 86.4%,
+                    rgba(10,13,18,0.97) 89.6%, rgba(20,26,36,0.97) 92.8%,
+                    rgba(10,13,18,0.97) 96%, rgba(10,14,20,0.97) 100%
                   )`,
                   boxShadow: "inset 0 4px 16px rgba(0,0,0,0.80)",
                 }}
@@ -142,9 +142,9 @@ export function LensIntro() {
             {/* ── Bague intérieure ── */}
             <div className="absolute inset-[12%] rounded-full" style={{
               background: `radial-gradient(circle at 44% 36%,
-                rgba(28,34,46,0.95) 0%,
-                rgba(14,16,24,0.97) 55%,
-                rgba(5,5,10,0.98) 100%
+                rgba(10,12,18,0.98) 0%,
+                rgba(6,7,12,0.99) 55%,
+                rgba(2,2,5,1) 100%
               )`,
               boxShadow: "inset 0 6px 20px rgba(0,0,0,0.90), inset 0 0 0 1px rgba(255,255,255,0.03)",
             }} />
@@ -160,10 +160,10 @@ export function LensIntro() {
             {/* ── Élément verre 1 ── */}
             <div className="absolute inset-[16%] rounded-full overflow-hidden" style={{
               background: `radial-gradient(circle at 46% 40%,
-                rgba(18,24,52,0.98) 0%,
-                rgba(10,12,32,0.98) 50%,
-                rgba(4,4,14,0.99) 80%,
-                rgba(2,2,7,1) 100%
+                rgba(8,10,28,1) 0%,
+                rgba(5,6,18,1) 50%,
+                rgba(2,2,8,1) 80%,
+                rgba(1,1,4,1) 100%
               )`,
             }}>
               <div className="absolute inset-0" style={{ background: "linear-gradient(130deg, rgba(70,90,180,0.10) 0%, transparent 45%)" }} />
@@ -172,10 +172,10 @@ export function LensIntro() {
             {/* ── Élément verre 2 ── */}
             <div className="absolute inset-[20%] rounded-full overflow-hidden" style={{
               background: `radial-gradient(circle at 47% 42%,
-                rgba(24,28,68,0.98) 0%,
-                rgba(14,16,45,0.98) 42%,
-                rgba(6,6,22,0.99) 68%,
-                rgba(2,2,9,1) 100%
+                rgba(10,12,40,1) 0%,
+                rgba(7,8,28,1) 42%,
+                rgba(3,3,14,1) 68%,
+                rgba(1,1,5,1) 100%
               )`,
             }}>
               <div className="absolute inset-0" style={{ background: "linear-gradient(140deg, rgba(90,100,210,0.09) 0%, transparent 50%)" }} />

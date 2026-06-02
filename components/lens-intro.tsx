@@ -66,7 +66,7 @@ export function LensIntro() {
             scale,
             opacity,
             // Point de zoom = centre de l'objectif dans la photo
-            transformOrigin: "52% 47%",
+            transformOrigin: "51% 42%",
           } as any}
           className="absolute inset-0"
         >

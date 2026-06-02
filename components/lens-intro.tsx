@@ -77,34 +77,116 @@ export function LensIntro() {
           className="relative flex flex-col items-center"
           style={{ scale, opacity, transformOrigin: "center 60%" } as any}
         >
-          {/* CAMERA BODY SILHOUETTE */}
+        {/* CAMERA BODY SILHOUETTE — realistic dark camera shape */}
+        <div className="absolute top-[2%] left-1/2 -translate-x-1/2 w-[min(96vw,820px)] h-[min(48vw,340px)] pointer-events-none z-0">
+
+          {/* Main body */}
           <div
-            className="absolute top-[5%] left-1/2 -translate-x-1/2 w-[min(92vw,760px)] h-[min(42vw,300px)] rounded-[42%] pointer-events-none"
+            className="absolute left-1/2 top-[22%] -translate-x-1/2 w-[88%] h-[62%]"
             style={{
               background: `
-                radial-gradient(ellipse at 50% 34%,
-                  rgba(24,30,45,0.18),
-                  rgba(6,8,12,0.82) 44%,
-                  rgba(0,0,0,0.99) 78%
+                radial-gradient(ellipse at 50% 35%,
+                  rgba(22,28,42,0.38),
+                  rgba(5,7,11,0.92) 48%,
+                  rgba(0,0,0,1) 82%
                 )
               `,
+              borderRadius: "28% 28% 22% 22% / 35% 35% 30% 30%",
               boxShadow: `
-                0 0 95px rgba(60,90,140,0.16),
+                0 0 95px rgba(70,110,180,0.13),
                 inset 0 0 90px rgba(0,0,0,0.98)
               `,
-              opacity: 0.94,
             }}
           />
 
-          {/* TOP BLUE BACKLIGHT */}
+          {/* Viewfinder bump */}
           <div
-            className="absolute top-[1%] left-1/2 -translate-x-1/2 w-[min(58vw,540px)] h-[180px] pointer-events-none"
+            className="absolute left-1/2 top-[2%] -translate-x-1/2 w-[30%] h-[42%]"
             style={{
-              background:
-                "radial-gradient(ellipse, rgba(80,110,170,0.25), rgba(20,30,55,0.10) 36%, transparent 74%)",
-              filter: "blur(30px)",
+              background: `
+                radial-gradient(ellipse at 50% 15%,
+                  rgba(45,58,82,0.36),
+                  rgba(5,7,11,0.94) 58%,
+                  rgba(0,0,0,1) 100%
+                )
+              `,
+              clipPath: "polygon(18% 100%, 30% 18%, 50% 0%, 70% 18%, 82% 100%)",
+              boxShadow: "0 0 45px rgba(120,160,255,0.16)",
             }}
           />
+
+          {/* Left grip */}
+          <div
+            className="absolute left-[6%] top-[30%] w-[22%] h-[58%]"
+            style={{
+              background: `
+                radial-gradient(ellipse at 40% 40%,
+                  rgba(18,24,36,0.45),
+                  rgba(2,3,5,0.96) 70%,
+                  rgba(0,0,0,1) 100%
+                )
+              `,
+              borderRadius: "42% 22% 25% 35%",
+              boxShadow: "inset -18px 0 40px rgba(0,0,0,0.92)",
+            }}
+          />
+
+          {/* Right grip */}
+          <div
+            className="absolute right-[6%] top-[30%] w-[22%] h-[58%]"
+            style={{
+              background: `
+                radial-gradient(ellipse at 60% 40%,
+                  rgba(18,24,36,0.42),
+                  rgba(2,3,5,0.96) 70%,
+                  rgba(0,0,0,1) 100%
+                )
+              `,
+              borderRadius: "22% 42% 35% 25%",
+              boxShadow: "inset 18px 0 40px rgba(0,0,0,0.92)",
+            }}
+          />
+
+          {/* Top buttons left */}
+          <div
+            className="absolute left-[18%] top-[18%] w-[11%] h-[10%]"
+            style={{
+              background: "rgba(5,7,10,0.92)",
+              borderRadius: "50%",
+              boxShadow: "0 -1px 8px rgba(160,190,255,0.12)",
+            }}
+          />
+
+          <div
+            className="absolute left-[30%] top-[15%] w-[13%] h-[9%]"
+            style={{
+              background: "rgba(5,7,10,0.94)",
+              borderRadius: "50%",
+              boxShadow: "0 -1px 8px rgba(160,190,255,0.13)",
+            }}
+          />
+
+          {/* Top button right */}
+          <div
+            className="absolute right-[22%] top-[16%] w-[13%] h-[9%]"
+            style={{
+              background: "rgba(5,7,10,0.94)",
+              borderRadius: "50%",
+              boxShadow: "0 -1px 8px rgba(160,190,255,0.13)",
+            }}
+          />
+
+          {/* Blue rim light */}
+          <div
+            className="absolute left-1/2 top-[4%] -translate-x-1/2 w-[70%] h-[55%]"
+            style={{
+              background:
+                "radial-gradient(ellipse at 50% 0%, rgba(120,160,255,0.22), transparent 58%)",
+              filter: "blur(18px)",
+              mixBlendMode: "screen",
+            }}
+          />
+        </div>
 
           {/* DARK REFLECTIVE FLOOR */}
           <div

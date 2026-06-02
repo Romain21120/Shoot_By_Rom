@@ -32,7 +32,6 @@ export function LensIntro() {
       <div className="sticky top-0 h-screen w-full overflow-hidden">
 
         {/* ── BACKGROUND PHOTO ── */}
-        {/* L'image est affichée en plein écran, centrée */}
         <div className="absolute inset-0">
           <img
             src="/camera-bg.png"
@@ -40,7 +39,6 @@ export function LensIntro() {
             className="w-full h-full object-cover object-center"
             style={{ opacity: 0.92 }}
           />
-          {/* Vignette légère sur les bords */}
           <div
             className="absolute inset-0"
             style={{
@@ -52,32 +50,21 @@ export function LensIntro() {
           />
         </div>
 
-        {/* ── LENS ANIMÉ ──
-            L'objectif dans la photo occupe environ :
-            - Centré horizontalement (~52% depuis la gauche)
-            - Centré verticalement (~47% depuis le haut)
-            - Diamètre ~42% de la largeur de l'image
-
-            On utilise position absolute avec left/top en % pour coller
-            exactement sur l'objectif quelle que soit la taille d'écran.
-        ── */}
+        {/* ── LENS OVERLAY (zoom + fade on scroll) ── */}
         <motion.div
           style={{
             scale,
             opacity,
-            // Point de zoom = centre de l'objectif dans la photo
             transformOrigin: "51% 42%",
           } as any}
           className="absolute inset-0"
         >
-          {/* Conteneur de l'iris, positionné sur le centre de l'objectif */}
+          {/* Objectif complet centré sur la photo */}
           <div
             className="absolute"
             style={{
-              // Centre de l'objectif dans la photo : ~52% left, ~47% top
               left: "51%",
               top: "42%",
-              // Diamètre = ~42vw (ajuste si besoin)
               width: "42vw",
               maxWidth: "560px",
               aspectRatio: "1 / 1",
@@ -85,50 +72,136 @@ export function LensIntro() {
             }}
           >
 
-            {/* Bague de mise au point qui tourne */}
-            <motion.div
+            {/* ── Bague extérieure (barrel) ── */}
+            <div
               className="absolute inset-0 rounded-full"
+              style={{
+                background: `radial-gradient(circle at 38% 30%,
+                  rgba(48,56,72,0.85) 0%,
+                  rgba(22,26,36,0.90) 42%,
+                  rgba(8,9,14,0.95) 100%
+                )`,
+                boxShadow: `
+                  inset 0 2px 0 rgba(255,255,255,0.07),
+                  inset 0 -2px 6px rgba(0,0,0,0.85),
+                  inset 0 0 0 1px rgba(255,255,255,0.04)
+                `,
+              }}
+            />
+
+            {/* Reflet haut */}
+            <div className="absolute pointer-events-none" style={{
+              top: "1%", left: "12%", right: "12%", height: "7%",
+              background: "linear-gradient(to bottom, rgba(255,255,255,0.06), transparent)",
+              borderRadius: "50%", filter: "blur(2px)",
+            }} />
+
+            {/* ── Bague de mise au point (knurled, tourne au scroll) ── */}
+            <motion.div
+              className="absolute inset-[4%] rounded-full overflow-hidden"
               style={{ rotate: smoothRot }}
             >
+              <div
+                className="absolute inset-0"
+                style={{
+                  background: `conic-gradient(from 0deg,
+                    rgba(24,30,40,0.90), rgba(46,56,72,0.90) 3.2%,
+                    rgba(22,28,38,0.90) 6.4%, rgba(44,54,70,0.90) 9.6%,
+                    rgba(22,28,38,0.90) 12.8%, rgba(44,54,70,0.90) 16%,
+                    rgba(22,28,38,0.90) 19.2%, rgba(44,54,70,0.90) 22.4%,
+                    rgba(22,28,38,0.90) 25.6%, rgba(44,54,70,0.90) 28.8%,
+                    rgba(22,28,38,0.90) 32%, rgba(44,54,70,0.90) 35.2%,
+                    rgba(22,28,38,0.90) 38.4%, rgba(44,54,70,0.90) 41.6%,
+                    rgba(22,28,38,0.90) 44.8%, rgba(44,54,70,0.90) 48%,
+                    rgba(22,28,38,0.90) 51.2%, rgba(44,54,70,0.90) 54.4%,
+                    rgba(22,28,38,0.90) 57.6%, rgba(44,54,70,0.90) 60.8%,
+                    rgba(22,28,38,0.90) 64%, rgba(44,54,70,0.90) 67.2%,
+                    rgba(22,28,38,0.90) 70.4%, rgba(44,54,70,0.90) 73.6%,
+                    rgba(22,28,38,0.90) 76.8%, rgba(44,54,70,0.90) 80%,
+                    rgba(22,28,38,0.90) 83.2%, rgba(44,54,70,0.90) 86.4%,
+                    rgba(22,28,38,0.90) 89.6%, rgba(44,54,70,0.90) 92.8%,
+                    rgba(22,28,38,0.90) 96%, rgba(24,30,40,0.90) 100%
+                  )`,
+                  boxShadow: "inset 0 4px 16px rgba(0,0,0,0.80)",
+                }}
+              />
               {[...Array(30)].map((_, i) => (
-                <div
-                  key={i}
-                  className="absolute inset-0 flex justify-center"
-                  style={{ transform: `rotate(${(i * 360) / 30}deg)` }}
-                >
-                  <div
-                    style={{
-                      position: "absolute",
-                      top: "1.5%",
-                      width: i % 5 === 0 ? "2px" : "1px",
-                      height: i % 5 === 0 ? "7%" : "4%",
-                      background: i % 5 === 0
-                        ? "rgba(255,255,255,0.22)"
-                        : "rgba(255,255,255,0.10)",
-                      borderRadius: "1px",
-                    }}
-                  />
+                <div key={i} className="absolute inset-0 flex justify-center"
+                  style={{ transform: `rotate(${(i * 360) / 30}deg)` }}>
+                  <div style={{
+                    position: "absolute", top: "2%",
+                    width: i % 5 === 0 ? "2px" : "1px",
+                    height: i % 5 === 0 ? "9%" : "5.5%",
+                    background: i % 5 === 0 ? "rgba(255,255,255,0.14)" : "rgba(255,255,255,0.07)",
+                    borderRadius: "1px",
+                  }} />
                 </div>
               ))}
             </motion.div>
 
-            {/* IRIS — à ~30% d'inset, soit ~40% du diamètre de l'objectif */}
-            <div className="absolute inset-[30%] rounded-full overflow-hidden">
+            {/* ── Bague intérieure ── */}
+            <div className="absolute inset-[12%] rounded-full" style={{
+              background: `radial-gradient(circle at 44% 36%,
+                rgba(28,34,46,0.95) 0%,
+                rgba(14,16,24,0.97) 55%,
+                rgba(5,5,10,0.98) 100%
+              )`,
+              boxShadow: "inset 0 6px 20px rgba(0,0,0,0.90), inset 0 0 0 1px rgba(255,255,255,0.03)",
+            }} />
+
+            {/* Séparations entre éléments optiques */}
+            {[16, 20, 25, 29].map((inset, i) => (
+              <div key={i} className="absolute rounded-full pointer-events-none" style={{
+                inset: `${inset}%`,
+                boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.05)",
+              }} />
+            ))}
+
+            {/* ── Élément verre 1 ── */}
+            <div className="absolute inset-[16%] rounded-full overflow-hidden" style={{
+              background: `radial-gradient(circle at 46% 40%,
+                rgba(18,24,52,0.98) 0%,
+                rgba(10,12,32,0.98) 50%,
+                rgba(4,4,14,0.99) 80%,
+                rgba(2,2,7,1) 100%
+              )`,
+            }}>
+              <div className="absolute inset-0" style={{ background: "linear-gradient(130deg, rgba(70,90,180,0.10) 0%, transparent 45%)" }} />
+            </div>
+
+            {/* ── Élément verre 2 ── */}
+            <div className="absolute inset-[20%] rounded-full overflow-hidden" style={{
+              background: `radial-gradient(circle at 47% 42%,
+                rgba(24,28,68,0.98) 0%,
+                rgba(14,16,45,0.98) 42%,
+                rgba(6,6,22,0.99) 68%,
+                rgba(2,2,9,1) 100%
+              )`,
+            }}>
+              <div className="absolute inset-0" style={{ background: "linear-gradient(140deg, rgba(90,100,210,0.09) 0%, transparent 50%)" }} />
+            </div>
+
+            {/* ── Élément verre 3 (indigo profond) ── */}
+            <div className="absolute inset-[25%] rounded-full overflow-hidden" style={{
+              background: `radial-gradient(circle at 48% 43%,
+                rgba(34,34,95,1) 0%,
+                rgba(20,18,68,1) 38%,
+                rgba(9,8,32,1) 62%,
+                rgba(3,2,12,1) 100%
+              )`,
+              boxShadow: "inset 0 0 35px rgba(0,0,0,0.85)",
+            }} />
+
+            {/* ── IRIS ── */}
+            <div className="absolute inset-[29%] rounded-full overflow-hidden">
               <div className="absolute inset-0 bg-black" />
 
               {[...Array(9)].map((_, i) => (
-                <div
-                  key={i}
-                  className="absolute inset-0"
-                  style={{ transform: `rotate(${(i * 360) / 9}deg)` }}
-                >
+                <div key={i} className="absolute inset-0"
+                  style={{ transform: `rotate(${(i * 360) / 9}deg)` }}>
                   <motion.div
                     className="absolute top-0 left-1/2 -translate-x-1/2 origin-bottom"
-                    animate={{
-                      height: irisOpen ? "37%" : "54%",
-                      width:  irisOpen ? "47%" : "60%",
-                      opacity: 1,
-                    }}
+                    animate={{ height: irisOpen ? "37%" : "54%", width: irisOpen ? "47%" : "60%", opacity: 1 }}
                     initial={{ height: "54%", width: "60%", opacity: 0 }}
                     transition={{
                       height:  { duration: 1.2, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.1 + i * 0.04 },
@@ -143,21 +216,18 @@ export function LensIntro() {
                 </div>
               ))}
 
-              {/* Lueur intérieure bleue/violette */}
+              {/* ── Lueur intérieure bleue/violette ── */}
               <div className="absolute inset-[17%] rounded-full overflow-hidden">
-                <div
-                  className="absolute inset-0"
-                  style={{
-                    background: `radial-gradient(circle at 48% 46%,
-                      rgba(100,70,255,0.98) 0%,
-                      rgba(65,35,210,0.95) 18%,
-                      rgba(38,16,155,0.92) 34%,
-                      rgba(18,8,80,0.94) 52%,
-                      rgba(6,2,28,1) 70%,
-                      rgba(0,0,0,1) 100%
-                    )`,
-                  }}
-                />
+                <div className="absolute inset-0" style={{
+                  background: `radial-gradient(circle at 48% 46%,
+                    rgba(100,70,255,0.98) 0%,
+                    rgba(65,35,210,0.95) 18%,
+                    rgba(38,16,155,0.92) 34%,
+                    rgba(18,8,80,0.94) 52%,
+                    rgba(6,2,28,1) 70%,
+                    rgba(0,0,0,1) 100%
+                  )`,
+                }} />
 
                 {/* Croix verticale */}
                 <div className="absolute inset-0 flex items-center justify-center">
@@ -177,7 +247,7 @@ export function LensIntro() {
                   }} />
                 </div>
 
-                {/* Point central lumineux */}
+                {/* Point central */}
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div style={{
                     width: "15%", height: "15%", borderRadius: "50%",
@@ -186,7 +256,7 @@ export function LensIntro() {
                   }} />
                 </div>
 
-                {/* Anneaux de diffraction */}
+                {/* Anneaux diffraction */}
                 <div className="absolute inset-[5%] rounded-full" style={{
                   boxShadow: `
                     0 0 0 1px rgba(145,120,255,0.22),
@@ -199,16 +269,35 @@ export function LensIntro() {
             </div>
 
             {/* Halo ambiant */}
-            <motion.div
-              className="absolute pointer-events-none"
-              style={{ inset: "-20%", opacity: flareOp }}
-            >
+            <motion.div className="absolute pointer-events-none" style={{ inset: "-18%", opacity: flareOp }}>
               <div style={{
                 position: "absolute", inset: "22%",
-                background: "radial-gradient(circle, rgba(55,35,200,0.22), transparent 65%)",
-                filter: "blur(24px)",
+                background: "radial-gradient(circle, rgba(55,35,200,0.20), transparent 65%)",
+                filter: "blur(22px)",
               }} />
             </motion.div>
+
+            {/* ── Marquages texte ── */}
+            <div className="absolute inset-[4%] rounded-full pointer-events-none">
+              <span className="absolute top-[2.5%] left-1/2 text-white/45 tracking-[0.38em] uppercase font-light select-none"
+                style={{ fontSize: "clamp(6px, 1.1vw, 10px)", transform: "translateX(-38%)" }}>
+                24-70MM
+              </span>
+              <div style={{
+                position: "absolute", top: "3.2%", left: "56%",
+                width: "7px", height: "7px", borderRadius: "50%",
+                background: "rgb(220,38,38)",
+                boxShadow: "0 0 8px rgba(220,38,38,0.85), 0 0 3px rgba(255,70,70,0.95)",
+              }} />
+              <span className="absolute bottom-[2.5%] left-1/2 -translate-x-1/2 text-white/40 tracking-[0.28em] font-light select-none"
+                style={{ fontSize: "clamp(5px, 0.95vw, 9px)" }}>
+                f/2.8 L USM
+              </span>
+              <span className="absolute top-1/2 right-[2.5%] -translate-y-1/2 text-white/22 tracking-[0.15em] font-light select-none"
+                style={{ fontSize: "clamp(4px, 0.8vw, 7px)", writingMode: "vertical-rl" }}>
+                ZOOM LENS
+              </span>
+            </div>
 
           </div>
         </motion.div>
@@ -218,39 +307,29 @@ export function LensIntro() {
           style={{ opacity: textOpacity, y: textY }}
           className="absolute inset-0 flex flex-col items-center justify-center text-center z-20 pointer-events-none"
         >
-          <h1
-            className="font-light tracking-[0.22em] text-white mb-6"
-            style={{ fontSize: "clamp(2rem, 6.5vw, 5.2rem)" }}
-          >
+          <h1 className="font-light tracking-[0.22em] text-white mb-6"
+            style={{ fontSize: "clamp(2rem, 6.5vw, 5.2rem)" }}>
             SHOOT BY ROM
           </h1>
-          <p
-            className="tracking-[0.42em] text-white/55 mb-8 uppercase"
-            style={{ fontSize: "clamp(0.6rem, 1.2vw, 0.95rem)" }}
-          >
+          <p className="tracking-[0.42em] text-white/55 mb-8 uppercase"
+            style={{ fontSize: "clamp(0.6rem, 1.2vw, 0.95rem)" }}>
             FPV • Drone • Photography
           </p>
-          <p
-            className="text-white/40 max-w-md px-6 leading-relaxed"
-            style={{ fontSize: "clamp(0.75rem, 1.4vw, 1rem)" }}
-          >
+          <p className="text-white/40 max-w-md px-6 leading-relaxed"
+            style={{ fontSize: "clamp(0.75rem, 1.4vw, 1rem)" }}>
             Capturing stories from the ground and the sky.
           </p>
         </motion.div>
 
         {/* ── SCROLL ── */}
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
+          initial={{ opacity: 0 }} animate={{ opacity: 1 }}
           transition={{ delay: 1.8, duration: 1 }}
           className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-30"
         >
           <span className="text-xs tracking-[0.3em] text-white/40 uppercase">Scroll</span>
-          <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-            className="w-px h-8 bg-gradient-to-b from-white/40 to-transparent"
-          />
+          <motion.div animate={{ y: [0, 8, 0] }} transition={{ duration: 1.5, repeat: Infinity }}
+            className="w-px h-8 bg-gradient-to-b from-white/40 to-transparent" />
         </motion.div>
 
       </div>

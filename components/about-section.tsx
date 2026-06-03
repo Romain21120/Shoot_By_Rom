@@ -46,7 +46,7 @@ export function AboutSection() {
           >
             <div>
               <h2 className="text-xs tracking-[0.5em] text-muted-foreground uppercase mb-4">
-                About
+                À propos
               </h2>
               <h3 className="text-4xl md:text-5xl lg:text-6xl font-light text-foreground leading-tight">
                 Shoot by Rom
@@ -55,17 +55,17 @@ export function AboutSection() {
 
             <div className="space-y-6 text-lg text-muted-foreground leading-relaxed">
               <p>
-                French engineering student, FPV pilot and photographer.
-                Driven by a passion for aviation, travel and visual storytelling, I create cinematic perspectives from the ground and the sky.
-                Whether building technical projects, flying drones or exploring new horizons, I am constantly seeking the perfect balance between precision and creativity.
+               Étudiant ingénieur, pilote FPV et photographe, je nourris une passion pour l'aéronautique, l'image et l'aventure. 
+               Entre projets techniques, voyages et création visuelle, je suis constamment à la recherche de nouvelles perspectives et d'expériences à raconter. 
+               Chaque projet représente pour moi une occasion d'explorer, de progresser et de transformer une vision en image.
               </p>
               <p>
-                Through photography and FPV, I seek to capture authentic emotions, meaningful moments and unique perspectives. Whether behind 
-                the camera on a portrait session or in the air creating cinematic visuals, I aim to tell stories that people can truly connect with.
+                À travers la photographie et le FPV, je m'efforce de capturer des émotions sincères, des moments mémorables et des points de vue uniques. 
+                Derrière l'objectif comme dans les airs, je cherche à créer des images qui suscitent une émotion et laissent une impression durable.
               </p>
               <p>
-                Every image tells a story. From portraits and events to cinematic FPV sequences, I focus on creating visuals that evoke emotion, 
-                capture authenticity and leave a lasting impression. For me, great imagery is not just about what people see — it's about what they feel.
+                Chaque image raconte une histoire. Qu'il s'agisse d'un portrait, d'un événement ou d'une séquence FPV, je m'attache à capturer l'authenticité d'un moment et à créer des visuels qui suscitent une émotion.
+                 Car au-delà de ce que l'on voit, ce sont souvent les émotions ressenties qui rendent une image mémorable.
               </p>
             </div>
 

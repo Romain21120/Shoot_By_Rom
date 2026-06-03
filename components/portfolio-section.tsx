@@ -374,7 +374,7 @@ export function PortfolioSection() {
             Portfolio
           </h2>
           <p className="text-3xl md:text-4xl font-light text-foreground">
-            Selected Works
+            Mes réalisations
           </p>
         </motion.div>
 

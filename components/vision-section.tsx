@@ -60,10 +60,10 @@ export function VisionSection() {
           className="text-center mb-20"
         >
           <h2 className="text-xs tracking-[0.5em] text-muted-foreground uppercase mb-4">
-            Entering the Vision
+            Là où naissent les images
           </h2>
           <p className="text-3xl md:text-4xl font-light text-foreground max-w-2xl mx-auto leading-relaxed">
-            Through the lens, every moment becomes a story waiting to be told.
+            À travers l'objectif, chaque instant devient une histoire à raconter.
           </p>
         </motion.div>
 

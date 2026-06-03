@@ -21,7 +21,7 @@ export function AboutSection() {
           >
             <div className="relative aspect-[3/4] max-w-md mx-auto lg:max-w-none overflow-hidden rounded-lg">
               <Image
-                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80"
+                src="/photo/portrait moi.jpeg"
                 alt="Portrait of Rom"
                 fill
                 className="object-cover"
@@ -55,26 +55,25 @@ export function AboutSection() {
 
             <div className="space-y-6 text-lg text-muted-foreground leading-relaxed">
               <p>
-                French engineering student with a passion that extends far beyond the classroom. 
-                Where technical precision meets creative vision, that&apos;s where I thrive.
+                French engineering student, FPV pilot and photographer.
+                Driven by a passion for aviation, travel and visual storytelling, I create cinematic perspectives from the ground and the sky.
+                Whether building technical projects, flying drones or exploring new horizons, I am constantly seeking the perfect balance between precision and creativity.
               </p>
               <p>
-                My journey began with FPV drones — the raw thrill of first-person flight combined 
-                with the engineering challenge of building and optimizing machines. This evolved 
-                into a deeper love for aerial cinematography and photography.
+                Through photography and FPV, I seek to capture authentic emotions, meaningful moments and unique perspectives. Whether behind 
+                the camera on a portrait session or in the air creating cinematic visuals, I aim to tell stories that people can truly connect with.
               </p>
               <p>
-                Every frame I capture tells a story. Whether it&apos;s racing through tight gaps at 
-                high speed or composing a serene landscape from above, I bring the same dedication 
-                to quality and detail that defines my engineering mindset.
+                Every image tells a story. From portraits and events to cinematic FPV sequences, I focus on creating visuals that evoke emotion, 
+                capture authenticity and leave a lasting impression. For me, great imagery is not just about what people see — it's about what they feel.
               </p>
             </div>
 
             {/* Stats */}
             <div className="grid grid-cols-3 gap-8 pt-8 border-t border-border/30">
               {[
-                { value: "3+", label: "Years Flying" },
-                { value: "12+", label: "Countries" },
+                { value: "-1", label: "Years Flying" },
+                { value: "2", label: "Countries" },
                 { value: "∞", label: "Stories to Tell" },
               ].map((stat, index) => (
                 <motion.div

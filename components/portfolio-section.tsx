@@ -67,10 +67,10 @@ const portfolioItems: PortfolioItem[] = [
     id: 4,
     type: "photo",
     category: "photo",
-    title: "Golden Hour",
-    location: "Lago Atitlán",
+    title: "Volcán de Fuego",
+    location: "Guatemala",
     aspect: "landscape",
-    src: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=1200&q=80",
+    src: "/photo/photo 1.jpg",
   },
   {
     id: 5,

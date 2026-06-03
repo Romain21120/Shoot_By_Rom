@@ -14,7 +14,7 @@ export function LensIntro() {
     offset: ["start start", "end start"],
   })
 
-  const scale       = useTransform(scrollYProgress, [0, 1],          [1, 3.7])
+  const scale       = useTransform(scrollYProgress, [0, 1],          [1, 5])
   const opacity     = useTransform(scrollYProgress, [0, 0.72, 1],    [1, 1, 0])
   const textOpacity = useTransform(scrollYProgress, [0, 0.2, 0.42],  [0, 1, 1])
   const textY       = useTransform(scrollYProgress, [0, 0.3],        [50, 0])
@@ -28,7 +28,7 @@ export function LensIntro() {
   }, [])
 
   return (
-    <section ref={containerRef} className="relative h-[300vh] bg-black">
+    <section ref={containerRef} className="relative h-[180vh] bg-black">
       <div className="sticky top-0 h-screen w-full overflow-hidden">
 
         {/* ── BACKGROUND PHOTO ── */}

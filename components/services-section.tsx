@@ -6,23 +6,23 @@ import { Aperture, Camera, Mountain, Video } from "lucide-react"
 const services = [
   {
     icon: Aperture,
-    title: "FPV Drone Content",
-    description: "High-speed, immersive footage that puts viewers in the pilot seat. Perfect for action sports, events, and creative projects."
+    title: "Contenu FPV",
+    description: "Grâce au FPV, je crée des images immersives qui plongent le spectateur au cœur de l'action. Une manière unique de raconter une histoire et de révéler des perspectives impossibles à obtenir autrement."
   },
   {
     icon: Mountain,
-    title: "Aerial Visuals",
-    description: "Cinematic drone footage that captures landscapes and locations from breathtaking perspectives."
+    title: "Visuels Aeriens",
+    description: "Des images aériennes cinématiques offrant des perspectives inédites et immersives. Idéales pour valoriser des événements, des lieux, des infrastructures ou des projets visuels."
   },
   {
     icon: Camera,
-    title: "Photography",
-    description: "From portraits to landscapes, capturing moments with precision and artistic vision."
+    title: "Photographie",
+    description: "Portraits, événements et perspectives aériennes : chaque image est pensée pour raconter une histoire et mettre en valeur ce qui la rend unique."
   },
   {
     icon: Video,
-    title: "Content Creation",
-    description: "End-to-end video production including editing, color grading, and storytelling."
+    title: "Création de contenu",
+    description: "Montage, étalonnage et mise en récit : chaque vidéo est pensée pour transmettre une émotion, valoriser un projet et raconter une histoire à travers l'image."
   },
 ]
 
@@ -47,7 +47,7 @@ export function ServicesSection() {
             Services
           </h2>
           <p className="text-3xl md:text-4xl font-light text-foreground max-w-2xl mx-auto">
-            Bringing visions to life through visual storytelling
+            Transformer une vision en image.
           </p>
         </motion.div>
 

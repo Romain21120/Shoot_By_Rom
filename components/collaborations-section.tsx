@@ -28,11 +28,11 @@ export function CollaborationsSection() {
             Collaborations
           </h2>
           <p className="text-3xl md:text-4xl font-light text-foreground mb-6">
-            Collaborations & Partnerships
+            Collaborations & Partenariats
           </p>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Open to collaborations with drone, FPV, travel, outdoor, and technology brands. 
-            Let&apos;s create something extraordinary together.
+            Ouvert aux collaborations avec des marques partageant une passion pour l'innovation, 
+            l'aventure et l'image. Créons ensemble quelque chose d'unique.
           </p>
         </motion.div>
 

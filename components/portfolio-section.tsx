@@ -111,7 +111,7 @@ const portfolioItems: PortfolioItem[] = [
 
   // ── DRONE ──
   {
-    id: 9,
+    id: 10,
     type: "video",
     category: "drone",
     title: "Night Explosion",
@@ -120,7 +120,7 @@ const portfolioItems: PortfolioItem[] = [
     youtubeId: "Sy64yOlx5Xo",   // ← remplace par ton ID YouTube
   },
   {
-    id: 10,
+    id: 11,
     type: "video",
     category: "drone",
     title: "Above the Clouds",
@@ -129,7 +129,7 @@ const portfolioItems: PortfolioItem[] = [
     src: "7dydEKOU5aQ",
   },
   {
-    id: 11,
+    id: 12,
     type: "video",
     category: "drone",
     title: "Explosive",

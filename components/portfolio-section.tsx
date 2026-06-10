@@ -114,19 +114,28 @@ const portfolioItems: PortfolioItem[] = [
     id: 9,
     type: "video",
     category: "drone",
-    title: "Aerial Vista",
+    title: "Night Explosion",
     location: "Guatemala",
     aspect: "landscape",
-    youtubeId: "dQw4w9WgXcQ",   // ← remplace par ton ID YouTube
+    youtubeId: "Sy64yOlx5Xo",   // ← remplace par ton ID YouTube
   },
   {
     id: 10,
-    type: "photo",
+    type: "video",
     category: "drone",
     title: "Above the Clouds",
-    location: "Volcán Santiaguito",
+    location: "Guatemala",
     aspect: "landscape",
-    src: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1200&q=80",
+    src: "7dydEKOU5aQ",
+  },
+  {
+    id: 11,
+    type: "video",
+    category: "drone",
+    title: "Explosive",
+    location: "Guatemala",
+    aspect: "landscape",
+    src: "7dydEKOU5aQ",
   },
 ]
 

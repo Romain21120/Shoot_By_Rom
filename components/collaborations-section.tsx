@@ -53,11 +53,13 @@ export function CollaborationsSection() {
               viewport={{ once: true }}
               className="group"
             >
-              <div className="aspect-[3/2] flex items-center justify-center bg-card/30 border border-dashed border-border/50 rounded-lg transition-all duration-300 hover:bg-card/50 hover:border-border">
-                <span className="text-sm text-muted-foreground/50 tracking-wider uppercase">
-                  Your Logo
-                </span>
-              </div>
+            <div className="aspect-[3/2] flex items-center justify-center">
+              <img
+                src="/logo SR blanc.png"
+                alt="Logo"
+                className="max-h-32 w-auto object-contain"
+              />
+            </div>
             </motion.div>
           ))}
         </motion.div>

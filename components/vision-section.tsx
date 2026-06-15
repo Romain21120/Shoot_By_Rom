@@ -6,25 +6,21 @@ import Image from "next/image"
 
 const featuredImages = [
   {
-    src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&q=80",
-    alt: "Mountain landscape at sunrise",
-    title: "Alpine Dawn"
+    src: "/photo/P8081292-2.jpg",
+    alt: "LOVE",
+    title: "Sunny eyes"
   },
   {
-    src: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=1200&q=80",
-    alt: "Forest aerial view",
-    title: "Forest Canopy"
+    src: "/photo/P6131397.jpg",
+    alt: "Rocks and Falls",
+    title: "River"
   },
   {
-    src: "https://images.unsplash.com/photo-1682687220742-aba13b6e50ba?w=1200&q=80",
-    alt: "Ocean coastline from drone",
-    title: "Coastal Flight"
+    src: "/photo/P6141444.jpg",
+    alt: "Old River",
+    title: "Ancient"
   },
-  {
-    src: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=1200&q=80",
-    alt: "Lake reflection mountains",
-    title: "Mirror Lake"
-  },
+  
 ]
 
 export function VisionSection() {

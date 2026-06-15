@@ -126,7 +126,7 @@ const portfolioItems: PortfolioItem[] = [
     title: "Above the Clouds",
     location: "Guatemala",
     aspect: "landscape",
-    src: "7dydEKOU5aQ",
+    youtubeId: "7dydEKOU5aQ",
   },
   {
     id: 12,
@@ -135,7 +135,7 @@ const portfolioItems: PortfolioItem[] = [
     title: "Explosive",
     location: "Guatemala",
     aspect: "landscape",
-    src: "0CZ7bMNRWc0",
+    youtubeId: "0CZ7bMNRWc0",
   },
 ]
 

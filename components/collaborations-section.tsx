@@ -42,26 +42,13 @@ export function CollaborationsSection() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
           viewport={{ once: true }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8"
+          className="flex justify-center items-center"
         >
-          {partnerLogos.map((partner, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.4, delay: 0.3 + index * 0.1 }}
-              viewport={{ once: true }}
-              className="group"
-            >
-            <div className="aspect-[3/2] flex items-center justify-center">
-              <img
-                src="/logo SR blanc.png"
-                alt="Logo"
-                className="max-h-32 w-auto object-contain"
-              />
-            </div>
-            </motion.div>
-          ))}
+          <img
+            src="/logo SR blanc.png"
+            alt="Shoot By Rom"
+            className="max-h-48 w-auto object-contain"
+          />
         </motion.div>
 
         {/* Call to action */}

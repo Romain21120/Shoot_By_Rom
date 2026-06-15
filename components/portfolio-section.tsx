@@ -135,7 +135,7 @@ const portfolioItems: PortfolioItem[] = [
     title: "Explosive",
     location: "Guatemala",
     aspect: "landscape",
-    src: "7dydEKOU5aQ",
+    src: "0CZ7bMNRWc0",
   },
 ]
 

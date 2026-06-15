@@ -60,13 +60,13 @@ export function CollaborationsSection() {
           className="mt-16 text-center"
         >
           <p className="text-muted-foreground mb-6">
-            Interested in working together?
+            Intéressé par une collaboration ?
           </p>
           <a
             href="#contact"
             className="inline-flex items-center gap-2 px-8 py-3 text-sm tracking-wider uppercase bg-foreground text-background rounded-full transition-all duration-300 hover:bg-foreground/90 hover:scale-105"
           >
-            Get in Touch
+            Prendre contact
           </a>
         </motion.div>
       </div>

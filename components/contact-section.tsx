@@ -8,8 +8,8 @@ const contactLinks = [
   {
     icon: Instagram,
     label: "Instagram",
-    href: "https://instagram.com/shootbyrom",
-    handle: "@shootbyrom"
+    href: "https://instagram.com/shoot_by_rom",
+    handle: "@Shoot_By_Rom"
   },
   {
     icon: Mail,

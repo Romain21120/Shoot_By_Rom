@@ -62,11 +62,10 @@ export function ContactSection() {
             Contact
           </h2>
           <p className="text-4xl md:text-5xl lg:text-6xl font-light text-foreground mb-6">
-            Let&apos;s Create Together
+            Créons ensemble quelque chose d'unique
           </p>
           <p className="text-lg text-muted-foreground max-w-xl mx-auto leading-relaxed">
-            Have a project in mind? I&apos;d love to hear about it. 
-            Reach out and let&apos;s bring your vision to life.
+            Un projet en tête ? Parlons-en. Ensemble, donnons vie à votre vision.
           </p>
         </motion.div>
 
@@ -117,7 +116,7 @@ export function ContactSection() {
           className="mt-32 pt-8 border-t border-border/30 text-center"
         >
           <p className="text-sm text-muted-foreground">
-            © 2026 Shoot by Rom. All rights reserved.
+            © 2026 Shoot_by_Rom. All rights reserved.
           </p>
           <p className="text-xs text-muted-foreground/50 mt-2 tracking-wider">
             Crafted with passion • FPV • Drone • Photography
